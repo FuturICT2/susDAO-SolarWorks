@@ -1,23 +1,23 @@
 pragma solidity >=0.5.0 <0.6.0;
 
 contract Main {
-
-  struct PVPanel {
+  
+  struct Panel {
     uint registrationNumber;
     uint16 monthsOfLife;
     string manufacturer;
-    address manufacturerAddress;
-    address ownerAddress;
-    address recyclerAddress;
+    address payable manufacturerAddress;
+    address payable ownerAddress;
+    address payable recyclerAddress;
     bool isActive;
     uint balance;
     uint recyclingCost;
   }
 
-  PVPanel[] public panels;
+  Panel[] public panels;
 
   /* modifier to restrict function calls to only active panels */
-  modifier active(_panelId) {
+  modifier isActive(uint _panelId) {
     require(panels[_panelId].isActive);
     _;
   }
@@ -34,34 +34,35 @@ contract Main {
 
   event PanelRegistered(uint panelId, uint registrationNumber, string manufacturer, address manufacturerAddress, address ownerAddress);
   /* Function to register a panel, this marks the beginning of the lifetime of a panel */
-  function registerPanel(uint _registrationNumber, string memory _manufacturer, address _manufacturerAddress, address _ownerAddress) external returns (uint) {
-    uint panelId = panels.push(PVPanel(_registrationNumber, 0, _manufacturer, _manufacturerAddress, _ownerAddress, 0, true, 0)) - 1;
+  function registerPanel(uint _registrationNumber, string calldata _manufacturer, address payable _manufacturerAddress, address payable _ownerAddress) external returns (uint) {
+    uint panelId = panels.push(Panel(_registrationNumber, 0, _manufacturer, _manufacturerAddress, _ownerAddress, address(uint160(0)), true, 0, 0)) - 1;
     emit PanelRegistered(panelId, _registrationNumber, _manufacturer, _manufacturerAddress, _ownerAddress);
+    return panelId;
   }
 
   /* Function to say that a panel has been operating for 1 month longer */
-  function _increaseLifetime(_panelId) public active(_panelId) {
+  function _increaseLifetime(uint _panelId) public {
     panels[_panelId].monthsOfLife++;
   }
 
   event DepositMade(uint panelId, uint valueReceived, address payerAddress);
   /* Funtion to deposit ether to a panel */
-  function deposit(uint _panelId) external payable active(_panelId) {
+  function deposit(uint _panelId) external payable {
     panels[_panelId].balance = panels[_panelId].balance + msg.value;
     emit DepositMade(_panelId, msg.value, msg.sender);
   }
 
   /* Function to set the address and the cost of the recycler */
-  function setRecycler(uint _panelId, address _recyclerAddress, uint _recyclingCost) external trusted() active(_panelId) {
-    require(_recyclerAddress!=0);
+  function setRecycler(uint _panelId, address payable _recyclerAddress, uint _recyclingCost) external trusted() {
+    require(_recyclerAddress != address(0));
     panels[_panelId].recyclerAddress = _recyclerAddress;
     panels[_panelId].recyclingCost = _recyclingCost; //Assume that recyclingCost already includes some profit margin for recycling company
   }
 
   /* Helper function calculating the shares for the involced parties based on balance etc... */
-  function calculateShares(uint _panelId) public returns (uint, uint, uint) {
-    require(_recyclerAddress != 0);
+  function calculateShares(uint _panelId) public view returns (uint, uint, uint) {
     Panel storage panel = panels[_panelId];
+    require(panel.recyclerAddress != address(0));
     uint ownerShare = 0;
     uint recyclerShare = panel.recyclingCost;
     uint manufacturerShare = 0;
@@ -82,7 +83,7 @@ contract Main {
   event PanelClosed(uint panelId, address ownerAddress, uint ownerShare, address recyclerAddress, uint recyclerShare, address manufacturerAddress, uint manufacturerShare);
   /* This function marks the end of the lifetime of the PV panel,
   The shares for the involced parties are calculated and paid. */
-  function close(uint _panelId) external trusted() active(_panelId) {
+  function close(uint _panelId) external trusted() {
     uint ownerShare;
     uint recyclerShare;
     uint manufacturerShare;
@@ -92,6 +93,6 @@ contract Main {
     panel.recyclerAddress.transfer(recyclerShare);
     panel.manufacturerAddress.transfer(manufacturerShare);
     panel.isActive = false;
-    emit PanelClosed(_panelId, ownerAddress, ownerShare, recyclerAddress, recyclerShare, manufacturerAddress, manufacturerShare);
+    emit PanelClosed(_panelId, panel.ownerAddress, ownerShare, panel.recyclerAddress, recyclerShare, panel.manufacturerAddress, manufacturerShare);
   }
 }
