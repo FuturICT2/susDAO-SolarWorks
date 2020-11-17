@@ -1,0 +1,63 @@
+=============d1e1==============
+Error:  *** Deployment Failed ***
+
+"Ownable" is an abstract contract or an interface and cannot be deployed.
+   * Import abstractions into the '.sol' file that uses them instead of deploying them separately.
+   * Contracts that inherit an abstraction must implement all its method signatures exactly.
+   * A contract that only implements part of an inherited abstraction is also considered abstract.
+
+    at Deployer._preFlightCheck (/usr/local/lib/node_modules/truffle/build/webpack:/packages/deployer/src/deployment.js:178:1)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at /usr/local/lib/node_modules/truffle/build/webpack:/packages/deployer/src/deployment.js:281:1
+    at Migration._deploy (/usr/local/lib/node_modules/truffle/build/webpack:/packages/migrate/Migration.js:68:1)
+    at Migration._load (/usr/local/lib/node_modules/truffle/build/webpack:/packages/migrate/Migration.js:55:1)
+    at Migration.run (/usr/local/lib/node_modules/truffle/build/webpack:/packages/migrate/Migration.js:171:1)
+    at Object.runMigrations (/usr/local/lib/node_modules/truffle/build/webpack:/packages/migrate/index.js:150:1)
+    at Object.runFrom (/usr/local/lib/node_modules/truffle/build/webpack:/packages/migrate/index.js:110:1)
+    at Object.run (/usr/local/lib/node_modules/truffle/build/webpack:/packages/migrate/index.js:87:1)
+    at runMigrations (/usr/local/lib/node_modules/truffle/build/webpack:/packages/core/lib/commands/migrate.js:269:1)
+    at /usr/local/lib/node_modules/truffle/build/webpack:/packages/core/lib/commands/migrate.js:231:1
+=============d1e2==============
+Error: Returned error: VM Exception while processing transaction: invalid opcode
+    at evalmachine.<anonymous>:0:10
+    at sigintHandlersWrap (vm.js:272:15)
+    at Script.runInContext (vm.js:127:14)
+    at runScript (/usr/local/lib/node_modules/truffle/build/webpack:/packages/core/lib/console.js:251:1)
+    at Console.interpret (/usr/local/lib/node_modules/truffle/build/webpack:/packages/core/lib/console.js:266:1)
+    at bound (domain.js:427:14)
+    at REPLServer.runBound [as eval] (domain.js:440:12)
+    at REPLServer.onLine (repl.js:760:10)
+    at REPLServer.emit (events.js:315:20)
+    at REPLServer.EventEmitter.emit (domain.js:483:12)
+    at REPLServer.Interface._onLine (readline.js:329:10)
+    at REPLServer.Interface._line (readline.js:658:8)
+    at REPLServer.Interface._ttyWrite (readline.js:1003:14)
+    at REPLServer.self._ttyWrite (repl.js:850:9)
+    at ReadStream.onkeypress (readline.js:205:10)
+    at ReadStream.emit (events.js:315:20)
+    at ReadStream.EventEmitter.emit (domain.js:483:12)
+    at emitKeys (internal/readline/utils.js:335:14)
+    at emitKeys.next (<anonymous>)
+    at ReadStream.onData (readline.js:1137:36)
+    at ReadStream.emit (events.js:315:20)
+    at ReadStream.EventEmitter.emit (domain.js:483:12)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at ReadStream.Readable.push (_stream_readable.js:212:10)
+    at TTY.onStreamRead (internal/stream_base_commons.js:186:23)
+    at TTY.callbackTrampoline (internal/async_hooks.js:120:14) {
+  hijackedStack: 'Error: Returned error: VM Exception while processing transaction: invalid opcode\n' +
+    '    at Object.ErrorResponse (/usr/local/lib/node_modules/truffle/build/webpack:/node_modules/web3-core-helpers/src/errors.js:29:1)\n' +
+    '    at /usr/local/lib/node_modules/truffle/build/webpack:/node_modules/web3-core-requestmanager/src/index.js:140:1\n' +
+    '    at /usr/local/lib/node_modules/truffle/build/webpack:/packages/provider/wrapper.js:112:1\n' +
+    '    at XMLHttpRequest.request.onreadystatechange (/usr/local/lib/node_modules/truffle/build/webpack:/node_modules/web3-providers-http/src/index.js:96:1)\n' +
+    '    at XMLHttpRequestEventTarget.dispatchEvent (/usr/local/lib/node_modules/truffle/build/webpack:/node_modules/xhr2-cookies/dist/xml-http-request-event-target.js:34:1)\n' +
+    '    at XMLHttpRequest._setReadyState (/usr/local/lib/node_modules/truffle/build/webpack:/node_modules/xhr2-cookies/dist/xml-http-request.js:208:1)\n' +
+    '    at XMLHttpRequest._onHttpResponseEnd (/usr/local/lib/node_modules/truffle/build/webpack:/node_modules/xhr2-cookies/dist/xml-http-request.js:318:1)\n' +
+    '    at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/truffle/build/webpack:/node_modules/xhr2-cookies/dist/xml-http-request.js:289:47)\n' +
+    '    at IncomingMessage.emit (events.js:327:22)\n' +
+    '    at IncomingMessage.EventEmitter.emit (domain.js:506:15)\n' +
+    '    at endReadableNT (_stream_readable.js:1220:12)\n' +
+    '    at processTicksAndRejections (internal/process/task_queues.js:84:21)'
+
+================

@@ -8,7 +8,7 @@ contract Main {
     string manufacturer;
     address payable manufacturerAddress;
     address payable ownerAddress;
-    address payable recyclerAddress;
+    address payable;
     bool isActive;
     uint balance;
     uint recyclingCost;
