@@ -16,6 +16,10 @@ contract Main {
 
   Panel[] public panels;
 
+  function getPanels() public returns (Panel[] memory) {
+    return panels;
+  }
+
   /* modifier to restrict function calls to only active panels */
   modifier isActive(uint _panelId) {
     require(panels[_panelId].isActive);
