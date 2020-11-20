@@ -1,0 +1,22 @@
+{
+  "name": "susdao-solarworks",
+  "version": "1.0.0",
+  "description": "Awesome Blockchain Project by Awesome People",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FuturICT2/susDAO-SolarWorks.git"
+  },
+  "author": "nico/kai/mark/una",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FuturICT2/susDAO-SolarWorks/issues"
+  },
+  "homepage": "https://github.com/FuturICT2/susDAO-SolarWorks#readme"
+}
