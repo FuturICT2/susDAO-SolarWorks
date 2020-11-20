@@ -1,0 +1,14 @@
+<h1 class="title"><img src="../assets/logo_blue.png" alt="Logo" width="70x">SolarWorks</h1>
+<nav>
+ <a routerLink="/main" routerLinkActive="active">Welcome</a>
+ <br>
+ <a routerLink="/panelowner" routerLinkActive="active">Solar Panel Owner</a>  
+ <a routerLink="/recycler" routerLinkActive="active">Solar Panel Recycler</a>
+ <a routerLink="/producer" routerLinkActive="active">Solar Panel Producer</a>
+ <a routerLink="/eleccorp" routerLinkActive="active">Electricity Company</a>
+ <a routerLink="/admin" routerLinkActive="active">SolarWork Admin</a>
+</nav>
+<div [@routeAnimation]="getAnimationData(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>
+<router-outlet name="popup"></router-outlet>

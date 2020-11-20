@@ -1,0 +1,12 @@
+
+==========
+npm install -g create-react-app
+or
+truffle unbox react
+==========
+npm install #in client folder
+==========
+ganache-cli
+truffle migrate --reset
+
+

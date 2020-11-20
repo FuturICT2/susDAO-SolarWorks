@@ -34,6 +34,7 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
+  contract_directory:'./appfront/src/contracts',
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
