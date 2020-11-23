@@ -1,11 +1,16 @@
 pragma solidity >=0.5.0 <0.6.0;
 
 contract Main {
+  address owner;
   
+  constructor() public {
+    owner = msg.sender;
+  }
+
   struct Panel {
     uint registrationNumber;
     uint16 monthsOfLife;
-    uint16 ppmForPanel; //ratio for total income to panel in ppm, for instance 10% = 100000ppm
+    uint16 pp10kForPanel; //ratio for total income to panel in parts per 10k, for instance 10% = 1000pp10k
     string manufacturer;
     address payable manufacturerAddress;
     address payable ownerAddress;
@@ -30,14 +35,14 @@ contract Main {
     check if the caller of the function is trusted third party,
     or oracle, maybe in form of a list of addresses checked against
     msg.sender */
-    require(true);
+    require(owner==msg.sender);
     _;
   }
 
   event PanelRegistered(uint panelId, uint registrationNumber, string manufacturer, address manufacturerAddress, address ownerAddress);
   /* Function to register a panel, this marks the beginning of the lifetime of a panel */
   function registerPanel(uint _registrationNumber, string calldata _manufacturer, address payable _manufacturerAddress, address payable _ownerAddress) external returns (uint) {
-    uint panelId = panels.push(Panel(_registrationNumber, 0, uint16(100000), _manufacturer, _manufacturerAddress, _ownerAddress, address(uint160(0)), true, 0, 0)) - 1;
+    uint panelId = panels.push(Panel(_registrationNumber, 0, uint16(1000), _manufacturer, _manufacturerAddress, _ownerAddress, address(uint160(0)), true, 0, 0)) - 1;
     registrationToId[_registrationNumber] = panelId;
     emit PanelRegistered(panelId, _registrationNumber, _manufacturer, _manufacturerAddress, _ownerAddress);
     return panelId;
@@ -57,15 +62,15 @@ contract Main {
 
   function pay(uint _panelId) external payable {
     Panel storage panel = panels[_panelId];
-    uint valueForPanel = msg.value*panel.ppmForPanel/1000000;
+    uint valueForPanel = msg.value*panel.pp10kForPanel/10000;
     uint valueForOwner = msg.value - valueForPanel;
     panel.ownerAddress.transfer(valueForOwner);
     panel.balance = panel.balance + valueForPanel;
     emit DepositMade(_panelId, valueForPanel, msg.sender);
   }
 
-  function updatePanelShare(uint _panelId, uint _ppmForPanel) external trusted() {
-    panels[_panelId].ppmForPanel = uint16(_ppmForPanel);
+  function updatePanelShare(uint _panelId, uint _pp10kForPanel) external trusted() {
+    panels[_panelId].pp10kForPanel = uint16(_pp10kForPanel);
   }
 
   /* Function to set the address and the cost of the recycler */
