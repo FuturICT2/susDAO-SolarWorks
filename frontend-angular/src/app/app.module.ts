@@ -12,7 +12,8 @@ import { AdminComponent } from './admin/admin.component';
 import { Router } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { FormsModule } from '@angular/forms';
-//mport {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
-    //BrowserAnimationsModule
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

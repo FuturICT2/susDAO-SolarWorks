@@ -1,27 +1,33 @@
 <h2>Panel Registration</h2>
     <div class="form-group">
         <label>Panel Registration Number</label>
-        <input class="form-control" placeholder="10101" [(ngModel)]="mypanel.rnumber">
+        <input class="form-control" placeholder="10101" [(ngModel)]="panel.rnumber"/>
     </div>
     <br>
     <div class="form-group">
         <label>Manufacturer</label>
-        <input class="form-control" placeholder="SolarworkAG" [(ngModel)]="mypanel.manufct">
+        <input class="form-control" placeholder="SolarworkAG" [(ngModel)]="panel.manufct"/>
     </div>
     <br>
     <div class="form-group">
         <label>Manufacturer Address</label>
-        <input class="form-control" placeholder="0x" [(ngModel)]="mypanel.manufctAddr">
+        <input class="form-control" placeholder="0x" [(ngModel)]="panel.manufctAddr"/>
     </div>
     <br>
     <div class="form-group">
         <label>Owner Address</label>
-        <input class="form-control" placeholder="0x" [(ngModel)]="mypanel.ownerAddr">
+        <input class="form-control" placeholder="0x" [(ngModel)]="panel.ownerAddr"/>
     </div>
     <br>
     <div class="form-group">
-        <button class="btn btn-info btn-block" (click)="onRegisterPanel(mypanel)">Register Panel</button>
+        <button class="btn btn-info btn-block" (click)="onRegisterPanel()">Register Panel</button>
     </div>
+    <div *ngIf="panelregistered">
+        Your Panel is successful registered.
+        Your Panel ID is {{panelid}}.
+    </div>
+
+
 
     <!-- rnumber,manufct,manufctAddr,ownerAddr -->
     <!-- <label>Owner Address</label><input placeholder="0x"/><br>
