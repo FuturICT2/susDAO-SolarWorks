@@ -13,6 +13,7 @@ export class SmcService {
   public web3:Web3;
   public main:any;
   private accounts:any;
+  private defaultAcc:any;
 
   constructor() {
     this.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
@@ -51,6 +52,79 @@ export class SmcService {
         console.log(data1);
         resolve(data1);
     });
+    }) as Promise<any>; 
+  }
+
+  public checkPanelStatus(panelid): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.panels(panelid).call(function(err, data) {
+          if (err) {
+            console.error(err);
+            reject(err);
+          }
+          console.log(data);
+          resolve(data);
+      });
+    }) as Promise<any>; 
+  }
+
+  public checkShare(_panelid): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.calculateShares(_panelid).call(function(err, data) {
+          if (err) {
+            console.error(err);
+            reject(err);
+          }
+          //console.log(data);
+          resolve(data);
+      });
+    }) as Promise<any>; 
+  }
+
+  public payPanel(__panelid,__electAddr,__amount): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.pay(__panelid).send({from:__electAddr,gas:"6721975",value:__amount}, function(__err, __data) {
+          if (__err) {
+            console.error(__err);
+            reject(__err);
+          }
+          console.log(__data);
+          resolve(__data);
+      });
+    }) as Promise<any>; 
+  }
+
+  public setRecycler(_panelid,_recyclerAddr,_recyclingCost,_deployerAcc): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.setRecycler(_panelid,_recyclerAddr,_recyclingCost).send({from:_deployerAcc,gas:"6721975"}, function(err, data) {
+          if (err) {
+            console.error(err);
+            reject(err);
+          }
+          console.log(data);
+          resolve(data);
+      });
+    }) as Promise<any>; 
+  }
+
+  public updateShare(_panelid,_pp10kForPanel,_deployerAcc): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.updatePanelShare(_panelid,_pp10kForPanel).send({from:_deployerAcc,gas:"6721975"}, function(err, data) {
+          if (err) {
+            console.error(err);
+            reject(err);
+          }
+          console.log(data);
+          resolve(data);
+      });
+    }) as Promise<any>; 
+  }
+
+  public closePanel(_panelid,_deployerAcc): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.close(_panelid).send({from:_deployerAcc,gas:"6721975"}, function(data) {
+          resolve(data);
+      });
     }) as Promise<any>; 
   }
   //0x01264f571e048c93Dd2A9A04d7FB040255B4e229 (100 ETH)

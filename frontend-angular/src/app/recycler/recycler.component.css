@@ -1,0 +1,9 @@
+.container{
+    margin-top: 10px;
+    border: 10px outset rgb(193, 217, 224);
+    border-style: outset;
+    border-width: 5x ;
+    border-radius: 5px;
+    width: 20vmax;
+    background-color: rgb(202, 233, 243);
+}

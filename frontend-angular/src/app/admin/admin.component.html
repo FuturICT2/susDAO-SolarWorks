@@ -1,1 +1,68 @@
-<p>admin works!</p>
+<h2>Set Panel Recycler</h2>
+<div class="form-group">
+    <label>Panel ID</label>
+    <br>
+    <input class="form-control" placeholder="10101" [(ngModel)]="panel.id"/>
+</div>
+<br>
+<div class="form-group">
+    <label>Recycler Address</label>
+    <br>
+    <input class="form-control" placeholder="0x0000000000000000000000000000000000000000" [(ngModel)]="panel.rAddr"/>
+</div>
+<br>
+<div class="form-group">
+    <label>Recycling Cost</label>
+    <br>
+    <input class="form-control" placeholder="236721975" [(ngModel)]="panel.rCost"/>
+</div>
+<br>
+<div class="form-group">
+    <button class="btn btn-info btn-block" (click)="onRegisterRecycler()">Set Recycler</button>
+</div>
+<div *ngIf="recyclerregistered">
+    Recycler is Registered!
+    <br>
+    Transaction Hash is {{recyclertxhash}}.
+</div>
+
+<h2>Update Share</h2>
+<div class="form-group">
+    <label>Panel ID</label>
+    <br>
+    <input class="form-control" placeholder="10101" [(ngModel)]="_panel.id"/>
+</div>
+<br>
+<div class="form-group">
+    <label>Percentage Per 10k for Panel</label>
+    <br>
+    <input class="form-control" placeholder="2" [(ngModel)]="_panel.pp10k"/>
+</div>
+<br>
+<div class="form-group">
+    <button class="btn btn-info btn-block" (click)="onUpdateShare()">Update</button>
+</div>
+<div *ngIf="shareupdated">
+    Share is updated!
+    <br>
+    Transaction Hash is {{sharetxhash}}.
+</div>
+
+
+<h2>Close Panel</h2>
+<div class="form-group">
+    <label>Panel ID</label>
+    <br>
+    <input class="form-control" placeholder="10101" [(ngModel)]="__panel.id"/>
+</div>
+<br>
+<div class="form-group">
+    <button class="btn btn-info btn-block" (click)="onClosePanel()">Close</button>
+</div>
+<br>
+<div *ngIf="panelclosed">
+    <br>
+    The panel is successfully closed.
+</div>
+
+
