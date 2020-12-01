@@ -1,30 +1,30 @@
 <p>electricity companies pay the solar panel monthly, and broadcast the amount of electricity</p>
 
 <h2>Pay Panel</h2>
-    <div class="form-group">
-        <label>Electricity Company Address</label>
-        <br>
-        <input class="form-control" placeholder="0x0000000000000000000000000000000000000000" [(ngModel)]="panel.manufctAddr"/>
-    </div>
+<div class="form-group">
+    <label>Electricity Company Address</label>
     <br>
-    <div class="form-group">
-        <label>Panel ID</label>
-        <br>
-        <input class="form-control" placeholder="10101" [(ngModel)]="panel.id"/>
-    </div>
+    <input class="form-control" placeholder="0x0000000000000000000000000000000000000000" [(ngModel)]="panel.manufctAddr"/>
+</div>
+<br>
+<div class="form-group">
+    <label>Panel ID</label>
     <br>
-    <div class="form-group">
-        <label>Amount</label>
-        <br>
-        <input class="form-control" placeholder="236721975" [(ngModel)]="panel.payamount"/>
-    </div>
+    <input class="form-control" placeholder="10101" [(ngModel)]="panel.id"/>
+</div>
+<br>
+<div class="form-group">
+    <label>Amount</label>
     <br>
-    <div class="form-group">
-        <button class="btn btn-info btn-block" (click)="onPayPanel()">Pay</button>
-    </div>
-    <div *ngIf="panelpaid">
-        Your Transaction is created!
-        <br>
-        Transaction hash:{{paydata}}
-        <br>
-    </div>
+    <input class="form-control" placeholder="236721975" [(ngModel)]="panel.payamount"/>
+</div>
+<br>
+<div class="form-group">
+    <button class="btn btn-info btn-block" (click)="onPayPanel()">Pay</button>
+</div>
+<div *ngIf="panelpaid">
+    Your Transaction is created!
+    <br>
+    Transaction hash:{{paydata}}
+    <br>
+</div>
