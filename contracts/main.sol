@@ -18,6 +18,7 @@ contract Main {
     bool isActive;
     uint balance;
     uint recyclingCost;
+    uint[] watthours;
   }
 
   Panel[] public panels;
@@ -39,17 +40,23 @@ contract Main {
     _;
   }
 
+  modifier onlyManufacturer() {
+    //TODO: make array with manufacturer addresses
+    require(true);
+    _;
+  }
+
   event PanelRegistered(uint panelId, uint registrationNumber, string manufacturer, address manufacturerAddress, address ownerAddress);
   /* Function to register a panel, this marks the beginning of the lifetime of a panel */
-  function registerPanel(uint _registrationNumber, string calldata _manufacturer, address payable _manufacturerAddress, address payable _ownerAddress) external returns (uint) {
-    uint panelId = panels.push(Panel(_registrationNumber, 0, uint16(1000), _manufacturer, _manufacturerAddress, _ownerAddress, address(uint160(0)), true, 0, 0)) - 1;
+  function registerPanel(uint _registrationNumber, string calldata _manufacturer, address payable _manufacturerAddress, address payable _ownerAddress) external onlyManufacturer() returns (uint) {
+    uint panelId = panels.push(Panel(_registrationNumber, 0, uint16(1000), _manufacturer, _manufacturerAddress, _ownerAddress, address(uint160(0)), true, 0, 0, new uint[](0))) - 1;
     registrationToId[_registrationNumber] = panelId;
     emit PanelRegistered(panelId, _registrationNumber, _manufacturer, _manufacturerAddress, _ownerAddress);
     return panelId;
   }
 
   /* Function to say that a panel has been operating for 1 month longer */
-  function _increaseLifetime(uint _panelId) public {
+  function _increaseLifetime(uint _panelId) private {
     panels[_panelId].monthsOfLife++;
   }
 
@@ -60,12 +67,14 @@ contract Main {
     emit DepositMade(_panelId, msg.value, msg.sender);
   }
 
-  function pay(uint _panelId) external payable {
+  function pay(uint _panelId, uint _watthours) external payable {
     Panel storage panel = panels[_panelId];
     uint valueForPanel = msg.value*panel.pp10kForPanel/10000;
     uint valueForOwner = msg.value - valueForPanel;
     panel.ownerAddress.transfer(valueForOwner);
     panel.balance = panel.balance + valueForPanel;
+    panel.watthours.push(_watthours);
+    _increaseLifetime(_panelId);
     emit DepositMade(_panelId, valueForPanel, msg.sender);
   }
 
