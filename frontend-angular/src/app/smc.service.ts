@@ -18,8 +18,8 @@ export class SmcService {
   constructor() {
     this.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
     this.accounts=this.web3.eth.accounts;
-    this.web3.eth.accounts.privateKeyToAccount("0x2562c568dbd800539299bc1cc203f4780f17485f72c00c38edc46321055d8c39");
-    this.main = new this.web3.eth.Contract(tokenAbi.abi, "0x2eb46aef5beDcBe035D24CD5550F0f89ABf19Dbe");
+    this.web3.eth.accounts.privateKeyToAccount("0xe55c575b541756b2f4737984589ce825cb0f907486eb5e9ae790817a14a64448");
+    this.main = new this.web3.eth.Contract(tokenAbi.abi, "0x3ec39540248BD92eA0C738b106E4070f07692c5D");
   }
   public getAccount() {
     if (!this.accounts) {
@@ -68,6 +68,19 @@ export class SmcService {
     }) as Promise<any>; 
   }
 
+  public checkPanelWatts(panelid): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.main.methods.panels(panelid).call(function(err, data) {
+          if (err) {
+            console.error(err);
+            reject(err);
+          }
+          console.log(data);
+          resolve(data);
+      });
+    }) as Promise<any>; 
+  }
+
   public checkShare(_panelid): Promise<any> {
     return new Promise((resolve, reject) => {
       this.main.methods.calculateShares(_panelid).call(function(err, data) {
@@ -81,9 +94,9 @@ export class SmcService {
     }) as Promise<any>; 
   }
 
-  public payPanel(__panelid,__electAddr,__amount): Promise<any> {
+  public payPanel(__panelid,__electAddr,__amount,__watthours): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.main.methods.pay(__panelid).send({from:__electAddr,gas:"6721975",value:__amount}, function(__err, __data) {
+      this.main.methods.pay(__panelid,__watthours).send({from:__electAddr,gas:"6721975",value:__amount}, function(__err, __data) {
           if (__err) {
             console.error(__err);
             reject(__err);

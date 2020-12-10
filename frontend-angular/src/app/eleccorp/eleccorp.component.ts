@@ -10,7 +10,7 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 })
 export class EleccorpComponent implements OnInit {
   private web3:Web3;
-  public panel = {id:"",manufctAddr:"",payamount:""};
+  public panel = {id:"",manufctAddr:"",payamount:"",watthours:""};
   panelpaid=false;
   paydata:any;
 
@@ -21,7 +21,7 @@ export class EleccorpComponent implements OnInit {
 
   onPayPanel(){
     let that = this;
-    this._smcService.payPanel(this.panel.id,this.panel.manufctAddr,this.panel.payamount).then(function(data){
+    this._smcService.payPanel(this.panel.id,this.panel.manufctAddr,this.panel.payamount,this.panel.watthours).then(function(data){
       that.panelpaid=true;
       that.paydata=data;
     })
