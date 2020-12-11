@@ -21,6 +21,11 @@ contract Main {
     uint[] watthours;
   }
 
+  /* returns electricity production history of panel with id _panelId */
+  function getWatthours(uint _panelId) external view returns(uint[] memory) {
+    return panels[_panelId].watthours;
+  }
+
   Panel[] public panels;
   mapping (uint => uint) public registrationToId;
 
