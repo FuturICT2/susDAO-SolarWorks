@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit {
   }
 
   onRegisterRecycler(){
-    this.deployerAcc="0x83B40403e231D88C160a59D23aA8B339B6d9Eb8a";
+    this.deployerAcc="0x3A83f4D59588c424FCbF209af7193f353577D382";
     let that = this;
     this._smcService.setRecycler(this.panel.id,this.panel.rAddr,this.panel.rCost,this.deployerAcc).then(function(data){
       that.recyclerregistered=true;
@@ -36,7 +36,7 @@ export class AdminComponent implements OnInit {
   }
 
   onUpdateShare(){
-    this.deployerAcc="0x83B40403e231D88C160a59D23aA8B339B6d9Eb8a";
+    this.deployerAcc="0x3A83f4D59588c424FCbF209af7193f353577D382";
     let that = this;
     this._smcService.updateShare(this._panel.id,this._panel.pp10k,this.deployerAcc).then(function(data){
       that.shareupdated=true;
@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit {
   }
 
   onClosePanel(){
-    this.deployerAcc="0x83B40403e231D88C160a59D23aA8B339B6d9Eb8a";
+    this.deployerAcc="0x3A83f4D59588c424FCbF209af7193f353577D382";
     let that = this;
     this._smcService.closePanel(this.__panel.id,this.deployerAcc).then(function(data){
       that.panelclosed = confirm("Are you sure about closing this panel?");

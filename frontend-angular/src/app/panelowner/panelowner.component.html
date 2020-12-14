@@ -1,6 +1,6 @@
 <h2>Check Electricity in Graph</h2>
 
-<div class="form-group">
+<!-- <div class="form-group">
         <label>Owner Address</label>
         <br>
         <input class="form-control" placeholder="0x" [(ngModel)]="panel.ownerAddr"/>
@@ -20,7 +20,7 @@
     <div>
         Your Panel's balance is {{_panelfinance}}.
     </div>
-</div> 
+</div>  -->
 
 
 <div class="form-group">
@@ -45,11 +45,23 @@
 </div>
 </div> 
 
+<!-- <div style="display: block;">
+    <canvas baseChart width="200" height="50"
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [colors]="lineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+    [options]="{elements: {line: {tension: 0}}}"
+    (chartClick)="chartClicked($event)">
+    </canvas>
+</div> -->
 
 
 
-
-<div *ngIf="elecgenerated; else blankchart">
+<div *ngIf="elecgenerated, else blankchart">
     <div style="display: block;">
         <canvas baseChart width="200" height="50"
         [datasets]="lineChartData2"
@@ -59,7 +71,8 @@
         [legend]="lineChartLegend"
         [chartType]="lineChartType"
         [plugins]="lineChartPlugins"
-        [options]="{ elements: {line: {tension: 0}}}">
+        [options]="{elements: {line: {tension: 0}}}"
+        (chartClick)="chartClicked($event)">
         </canvas>
     </div>
 </div>
@@ -73,7 +86,8 @@
         [legend]="lineChartLegend"
         [chartType]="lineChartType"
         [plugins]="lineChartPlugins"
-        [options]="{ elements: {line: {tension: 0}}}">
+        [options]="{ elements: {line: {tension: 0}}}"
+        (chartClick)="chartClicked($event)">
         </canvas>
     </div>
 </ng-template>

@@ -17,6 +17,8 @@ export class RecyclerComponent implements OnInit {
   _panelid:any;
   _panelrecyclingcost:any;
   _monthsoflife:any;
+  sharestatus:any;
+
 
   constructor(private _smcService:SmcService) { }
 
@@ -42,6 +44,18 @@ export class RecyclerComponent implements OnInit {
   }
 
   onShare(){
+    let that = this;
+    this.sharestatus=this._smcService.checkPanelStatus(this.panel.panelid).then(function(data){
+      if(that.panel.recyclerAddr == data.recyclerAddress){
+        that.sharechecked=true;
+        that.sharestatus = data.pp10kForPanel;
+        }
+      else{
+        that.panelchecked=false;
+        alert("False Recycler Address!");
+      }
+      
+    })
 
   }
 }

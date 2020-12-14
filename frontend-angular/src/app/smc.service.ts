@@ -18,8 +18,8 @@ export class SmcService {
   constructor() {
     this.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
     this.accounts=this.web3.eth.accounts;
-    this.web3.eth.accounts.privateKeyToAccount("0xe55c575b541756b2f4737984589ce825cb0f907486eb5e9ae790817a14a64448");
-    this.main = new this.web3.eth.Contract(tokenAbi.abi, "0x3ec39540248BD92eA0C738b106E4070f07692c5D");
+    this.web3.eth.accounts.privateKeyToAccount("0x416af587eb0a78dea0bc4e46364c8fc5d033036ad0f32ea80c44a51dda7c3d5e");
+    this.main = new this.web3.eth.Contract(tokenAbi.abi, "0x701D1211386164E0A60002b10cb769B1c607bf1E");
   }
   public getAccount() {
     if (!this.accounts) {
@@ -68,9 +68,9 @@ export class SmcService {
     }) as Promise<any>; 
   }
 
-  public checkPanelWatts(panelid): Promise<any> {
+  public checkPanelWatts(__panelid): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.main.methods.panels(panelid).call(function(err, data) {
+      this.main.methods.getWatthours(__panelid).call(function(err, data) {
           if (err) {
             console.error(err);
             reject(err);

@@ -25,9 +25,11 @@
             <br>
             Panel Recycling Cost : {{_panelrecyclingcost}}
             <br>
-            Panel Life Span : {{_monthsoflife}}
+            Panel Life Span : {{_monthsoflife}} Seasons
         </div>
     </div>
     <div *ngIf="sharechecked">
-        {{sharestatus}}.
+        <div class="container">
+            Your share is {{sharestatus}} %
+        </div>
     </div>
