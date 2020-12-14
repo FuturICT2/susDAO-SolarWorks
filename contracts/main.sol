@@ -106,8 +106,8 @@ contract Main {
     if (recyclerShare >= panel.balance) {
         recyclerShare = panel.balance;
     }
-    // If the panel lasted longer than 3 years, the manufacturer gets 5% of the rest
-    if (panel.monthsOfLife >= 3*12) {
+    // If the panel lasted longer than 30 years, the manufacturer gets 5% of the rest
+    if (panel.monthsOfLife >= 30*12) {
         manufacturerShare = 5 * (panel.balance - recyclerShare) / 100;
     }
     // finally user gets the rest
