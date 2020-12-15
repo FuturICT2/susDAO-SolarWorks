@@ -52,7 +52,8 @@ contract Main {
   }
 
   event PanelRegistered(uint panelId, uint registrationNumber, string manufacturer, address manufacturerAddress, address ownerAddress);
-  /* Function to register a panel, this marks the beginning of the lifetime of a panel */
+  /* Function to register a panel, this marks the beginning of the lifetime of a panel
+  Returns the id of the new panel */
   function registerPanel(uint _registrationNumber, string calldata _manufacturer, address payable _manufacturerAddress, address payable _ownerAddress) external onlyManufacturer() returns (uint) {
     uint panelId = panels.push(Panel(_registrationNumber, 0, uint16(1000), _manufacturer, _manufacturerAddress, _ownerAddress, address(uint160(0)), true, 0, 0, new uint[](0))) - 1;
     registrationToId[_registrationNumber] = panelId;
@@ -72,6 +73,7 @@ contract Main {
     emit DepositMade(_panelId, msg.value, msg.sender);
   }
 
+  /* Pays for the produced _watthours of the panel with _panelId */
   function pay(uint _panelId, uint _watthours) external payable {
     Panel storage panel = panels[_panelId];
     uint valueForPanel = msg.value*panel.pp10kForPanel/10000;
@@ -83,6 +85,7 @@ contract Main {
     emit DepositMade(_panelId, valueForPanel, msg.sender);
   }
 
+  /* Updates the variable pp10kPanel */
   function updatePanelShare(uint _panelId, uint _pp10kForPanel) external trusted() {
     panels[_panelId].pp10kForPanel = uint16(_pp10kForPanel);
   }
@@ -94,7 +97,9 @@ contract Main {
     panels[_panelId].recyclingCost = _recyclingCost; //Assume that recyclingCost already includes some profit margin for recycling company
   }
 
-  /* Helper function calculating the shares for the involced parties based on balance etc... */
+  /* Helper function calculating the shares for the involced parties based on parameter
+  balance etc... 
+  Returns the relatives shares*/
   function calculateShares(uint _panelId) public view returns (uint, uint, uint) {
     Panel storage panel = panels[_panelId];
     require(panel.recyclerAddress != address(0));
